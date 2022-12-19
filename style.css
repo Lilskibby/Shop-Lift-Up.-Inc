@@ -1,0 +1,47 @@
+      body
+      {
+        background-color: #e4f5eb;
+        
+      }
+      
+      #logodiv {
+        text-align: center;
+        font-size: 40pt;
+        font-family: Helvetica;
+        font-weight: bold;
+      }
+
+      #logo {
+        width: 200px;
+      }
+
+      #formdiv {
+        text-align: center;
+      }
+
+      table {
+        border: solid black;
+        font-size: 25pt;
+        font-family: "Helvetica";
+      }
+
+      td {
+        border: thin solid black;
+        padding: 4px;
+      }
+
+      th {
+        border: thin solid black;
+        padding: 4px;
+      }
+
+      #upButt {
+        visibility: hidden;
+      }
+      #downButt {
+        visibility: hidden;
+      }
+
+      #doneButt {
+        visibility: hidden;
+      }
