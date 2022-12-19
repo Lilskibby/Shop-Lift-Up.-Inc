@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Grocery List</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <style></style>
+    <script src="script.js"></script>
+    <script>
+      function initialize() {
+        groceryList = [];
+        indexChange = 0;
+        table = document.getElementById("table");
+        otherTable = document.getElementById("table1");
+        inputContainer = document.getElementById("inputform");
+        upButton = document.getElementById("upButt");
+        downButton = document.getElementById("downButt");
+        doneButton = document.getElementById("doneButt");
+        img = document.getElementById("logo");
+        img.addEventListener("click", bigger);
+        img.style.width = "200px"
+      }
+
+      function bigger()
+      {
+        let num = parseInt(img.style.width);
+        num += 2;
+        console.log(img.style.width);
+        img.style.width = num + "px";
+        
+        console.log(img.style.width);
+      }
+      
+      function addItem() {
+        groceryList.push(inputContainer.item.value);
+
+        inputContainer.item.value = "";
+        display();
+      }
+
+      function removeItem() {
+        
+        numBool = isNumber(inputContainer.item.value) ? true : false
+        
+        if(numBool){
+          itemIdx = inputContainer.item.value;
+          groceryList.splice(itemIdx - 1, 1);
+
+        }
+
+        inputContainer.item.value = "";
+
+        display();
+      }
+
+      function changePosition() {
+        if (isNumber(inputContainer.item.value)) {
+          indexChange = inputContainer.item.value - 1;
+          upButton.style.visibility = "visible";
+          downButton.style.visibility = "visible";
+          doneButton.style.visibility = "visible";
+        }
+
+        inputContainer.item.value = "";
+
+        //document.getElementBy();
+        display();
+      }
+
+      function up() {
+        if (indexChange != 0) {
+          temp = groceryList[indexChange - 1];
+          groceryList[indexChange - 1] = groceryList[indexChange];
+          groceryList[indexChange] = temp;
+          indexChange -= 1;
+          display();
+        }
+      }
+
+      function done() {
+        upButton.style.visibility = 'hidden';
+        downButton.style.visibility = "hidden";
+        doneButton.style.visibility = "hidden";
+      }
+
+      function down() {
+        if (
+          indexChange === groceryList.length ||
+          indexChange === groceryList.length - 1
+        ) {
+        }
+        else
+          {
+            temp = groceryList[indexChange + 1];
+
+            groceryList[indexChange + 1] = groceryList[indexChange];
+            groceryList[indexChange] = temp;
+            indexChange += 1;
+            console.log(indexChange);
+            display();
+          }
+      }
+
+      function display() {
+        document.querySelector("#table").innerHTML = "";
+        otherTable = document.createElement("table");
+        otherTable.style.border = "solid black";
+        otherTable.style.borderBottom = "solid";
+        table.style.fontSize = "25pt";
+        table.appendChild(otherTable);
+        row1 = document.createElement("tr");
+        otherTable.appendChild(row1);
+        numHead = document.createElement("th");
+        numHead.style.border = "thin solid black";
+        numHeadText = document.createTextNode("Number");
+        numHead.appendChild(numHeadText);
+        itemHead = document.createElement("th");
+        itemHead.style.border = "thin solid black";      
+        itemHeadText = document.createTextNode("Item");
+        itemHead.appendChild(itemHeadText);
+        row1.appendChild(numHead);
+        row1.appendChild(itemHead);
+        
+        addRow = i => {
+          row = document.createElement("tr");
+          otherTable.appendChild(row);
+          number = document.createElement("td");
+          number.style.border = "thin solid black";
+          numberText = document.createTextNode(i + 1);
+          number.appendChild(numberText);
+          foodText = document.createTextNode(groceryList[i]);
+          food = document.createElement("td");
+          food.style.border = "thin solid black";
+          food.appendChild(foodText);
+          row.appendChild(number);
+          row.appendChild(food);
+        }
+        
+        for (let i = 0; i < groceryList.length; i++) {
+          addRow(i);
+        }
+        
+      }
+    </script>
+  </head>
+  <body onload="initialize();">
+    <div id="logodiv">
+      <img 
+        id="logo"
+        src="https://cdn.glitch.global/0ab92e69-0d9d-4912-8787-93209ea232f9/logo.png?v=1669911241238"
+      />
+      <br />
+      Shop Lift Up, Inc.
+    </div>
+
+    <div id="formdiv">
+      <form id="inputform">
+        Type the food you'd like to add or number of the item you want to delete
+        or re-order: <input  id = "iteminput" name="item" type="text" />
+      </form>
+      <br />
+      <button onclick="addItem();">Add Item</button>
+      <button onclick="removeItem();">Remove Item</button>
+      <button onclick="changePosition();">Change Item Position</button>
+      <br />
+      <button id="upButt" onclick="up();">↑</button>
+      <button id="downButt" onclick="down();">↓</button>
+      <br />
+      <button id="doneButt" onclick="done();">Done</button>
+    </div>
+
+    <center>
+      <div id="table">
+        <br />
+        <table id="table1">
+          <tr id="num">
+            <th>Number</th>
+            <th>Item</th>
+          </tr>
+        </table>
+      </div>
+    </center>
+  </body>
+</html>
